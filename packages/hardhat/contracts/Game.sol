@@ -1,6 +1,6 @@
 pragma solidity ^0.8.9;
 
-contract DailyGame {
+contract DailyGames {
     address public owner;
     uint256 public endTime;
     uint256 public winningAmount;
