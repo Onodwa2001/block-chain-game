@@ -6,28 +6,56 @@
 // global scope, and execute the script.
 const hre = require("hardhat");
 
+// async function main() {
+//     const currentTimestampInSeconds = Math.round(Date.now() / 1000);
+//     const SIXTY_SECS = 60;
+//     const unlockTime = currentTimestampInSeconds + SIXTY_SECS;
+
+//     const lockedAmount = hre.ethers.utils.parseEther("0.0001");
+
+//     const Lock = await hre.ethers.getContractFactory("Lock");
+//     const lock = await Lock.deploy(unlockTime, { value: lockedAmount });
+
+//     console.log(`Unlock Time: ${unlockTime}`);
+
+//     await lock.deployed();
+
+//     console.log(
+//         `Lock with 0.0001 ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`
+//     );
+// }
+
+// // We recommend this pattern to be able to use async/await everywhere
+// // and properly handle errors.
+// main().catch((error) => {
+//     console.error(error);
+//     process.exitCode = 1;
+// });
+
 async function main() {
-    const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-    const SIXTY_SECS = 60;
-    const unlockTime = currentTimestampInSeconds + SIXTY_SECS;
-
-    const lockedAmount = hre.ethers.utils.parseEther("0.0001");
-
-    const Lock = await hre.ethers.getContractFactory("Lock");
-    const lock = await Lock.deploy(unlockTime, { value: lockedAmount });
-
-    console.log(`Unlock Time: ${unlockTime}`);
-
-    await lock.deployed();
-
-    console.log(
-        `Lock with 0.0001 ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`
-    );
-}
-
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
-main().catch((error) => {
-    console.error(error);
-    process.exitCode = 1;
-});
+    // Hardhat always runs the compile task when running scripts, so no need to call it explicitly.
+  
+    // Get the ContractFactory and Signers here.
+    const DailyGame = await ethers.getContractFactory("DailyGame");
+    const [deployer] = await ethers.getSigners();
+  
+    console.log("Deploying DailyGame contract with the account:", deployer.address);
+  
+    // Deploy the contract
+    const dailyGame = await DailyGame.deploy();
+  
+    console.log("DailyGame contract address:", dailyGame.address);
+  
+    // If you want to interact with the deployed contract after deployment:
+    // await dailyGame.deployed();
+    // console.log("DailyGame deployed to:", dailyGame.address);
+  }
+  
+  // Run the main function
+  main()
+    .then(() => process.exit(0))
+    .catch(error => {
+      console.error(error);
+      process.exit(1);
+    });
+  
