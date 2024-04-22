@@ -77,15 +77,47 @@
 .game-instructions p {
     margin: 0 0 10px; /* Add some spacing between paragraphs */
 }
+
+.modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.4);
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+    }
     </style>
   </head>
 
   <body>
 
+    <script>
+      
+    </script>
+
     <div class="game-instructions">
       <p>This is a simple game where you control a cube using the keyboard arrow keys.</p>
       <p>Press 'A' and 'D' keys to move left and right, and 'Space' key to jump.</p>
       <p>Avoid the obstacles and try to survive as long as possible!</p>
+  </div>
+
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <p id="game-over-message"></p>
+      <p id="payment-message"></p>
+      <button id="confirm-payment">Confirm Payment</button>
+    </div>
   </div>
     
 
@@ -242,7 +274,7 @@ async function payUser(score) {
     const userAddress = accounts[0];
 
     await contract.methods.payUser(userAddress, score).send({ from: userAddress });
-    console.log("Payment successful with score:", score);
+    alert("Payment successful with score:", score);
   } catch (error) {
     console.error("Payment error:", error.message || "Unknown Error");
     throw error;  // Rethrow or handle appropriately.
@@ -685,10 +717,12 @@ initWeb3();
 
         frames++
 
+        
+
         if (collided) {
-          // show payment
-          alert('Game over: ' + score)
-        //   let userInput = prompt('Please enter your wallet address:')
+         
+          alert('Game over: ' + score + ' Payment: ' + (score * 10000 * 0.00001 * (10**18) / (10**18)).toFixed(1) + ' Celo')
+          cancelAnimationFrame(animationId)
           payUser(score)
             .then(() => {
               location.reload()
@@ -696,8 +730,7 @@ initWeb3();
             .catch((err) => {
               alert(err)
             })
-          // document.getElementsClassName('payment')[0].style.visibility = "visible";
-          // cancelAnimationFrame(animationId)
+          
         }
 
         // cube.position.y += -0.01
