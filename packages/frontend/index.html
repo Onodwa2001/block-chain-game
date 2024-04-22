@@ -78,25 +78,6 @@
     margin: 0 0 10px; /* Add some spacing between paragraphs */
 }
 
-.modal {
-      display: none;
-      position: fixed;
-      z-index: 1;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.4);
-    }
-
-    .modal-content {
-      background-color: #fefefe;
-      margin: 15% auto;
-      padding: 20px;
-      border: 1px solid #888;
-      width: 80%;
-    }
     </style>
   </head>
 
@@ -105,22 +86,6 @@
     <script>
       
     </script>
-
-    <div class="game-instructions">
-      <p>This is a simple game where you control a cube using the keyboard arrow keys.</p>
-      <p>Press 'A' and 'D' keys to move left and right, and 'Space' key to jump.</p>
-      <p>Avoid the obstacles and try to survive as long as possible!</p>
-  </div>
-
-  <div id="myModal" class="modal">
-    <div class="modal-content">
-      <p id="game-over-message"></p>
-      <p id="payment-message"></p>
-      <button id="confirm-payment">Confirm Payment</button>
-    </div>
-  </div>
-    
-
     <!-- Include the Web3.js library -->
     <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
     <style>
@@ -417,6 +382,8 @@ initWeb3();
       let deathDelay = 0
       let delayIntervalId
 
+      
+
       const scoreTextMaterial = new THREE.MeshBasicMaterial({ color: 0x000000 })
 
       const fontLoader = new FontLoader()
@@ -557,9 +524,6 @@ initWeb3();
     
       function animate() {
         const animationId = requestAnimationFrame(animate)
-
-
-
 
         renderer.render(scene, camera)
 
@@ -732,12 +696,20 @@ initWeb3();
             })
           
         }
-
         // cube.position.y += -0.01
         // cube.rotation.x += 0.01
         // cube.rotation.y += 0.01
     }
       animate()
+
+  
+
+     
     </script>
+    <div class="game-instructions">
+      <p>This is a simple game where you control a cube using the keyboard arrow keys.</p>
+      <p>Press 'A' and 'D' keys to move left and right, Press 'W' and 'S' keys to move Forward and Backwards and 'Space' key to jump.</p>
+      <p>Avoid the obstacles and try to survive as long as possible!</p>
+    </div>
   </body>
 </html>
